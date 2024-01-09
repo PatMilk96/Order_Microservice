@@ -13,6 +13,9 @@ public class OrderController {
 
     @PutMapping("/buy/{productId}/{amountWanted}")
     public String buyProduct(@PathVariable Long productId, @PathVariable int amountWanted){
-        return productService.buyProduct(productId, amountWanted);
+        if(amountWanted < 0){
+            return "Sorry, that's an invalid amount";
+        }
+        else return productService.buyProduct(productId, amountWanted);
     }
 }
