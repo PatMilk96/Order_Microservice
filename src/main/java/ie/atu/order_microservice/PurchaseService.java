@@ -1,5 +1,6 @@
 package ie.atu.order_microservice;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,5 +12,14 @@ public class PurchaseService {
 
     public void addOrder(PurchaseDetails purchaseDetails) {
         purchaseRepository.save(purchaseDetails);
+    }
+
+    @Transactional
+    public String updateOrder(String trackingNumber, String updateStatus){
+        if(purchaseRepository.existsByTrackingNumber(trackingNumber)){
+            purchaseRepository.updateOrderStatus(trackingNumber, updateStatus);
+            return "Status Updated";
+        }
+        else return "Tracking Number not found";
     }
 }

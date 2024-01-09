@@ -24,8 +24,12 @@ public class PurchaseDetails {
     @NotBlank(message = "Tracking number cannot be empty")
     private String trackingNumber;
 
-    public PurchaseDetails(String dateOrdered, String trackingNumber) {
+    @NotBlank(message = "Order Status cannot be empty")
+    private String orderStatus;
+
+    public PurchaseDetails(String dateOrdered, String trackingNumber, String orderStatus) {
         this.dateOrdered = dateOrdered;
         this.trackingNumber = trackingNumber;
+        this.orderStatus = orderStatus;
     }
 }
