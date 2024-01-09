@@ -8,7 +8,7 @@ import java.util.Date;
 @RequestMapping("/order")
 public class OrderController {
     private final ProductService productService;
-    private PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     public OrderController(ProductService productService, PurchaseService purchaseService){
         this.productService = productService;
@@ -26,7 +26,7 @@ public class OrderController {
                 long currentTimeInMillis = System.currentTimeMillis();
                 Date currentDate = new Date(currentTimeInMillis);
                 String currentDateTime = currentDate.toString();
-                PurchaseDetails purchaseDetails = new PurchaseDetails(currentDateTime, result);
+                PurchaseDetails purchaseDetails = new PurchaseDetails(currentDateTime, result, "Processing");
                 purchaseService.addOrder(purchaseDetails);
                 return "Thank You for your purchase, your tracking number is " + result;
             }
@@ -35,6 +35,13 @@ public class OrderController {
             }
         }
     }
+
+    @PutMapping("/updateOrder/{trackingNumber}/{updateStatus}")
+    public String updateOrderStatus(@PathVariable String trackingNumber, @PathVariable String updateStatus){
+        return purchaseService.updateOrder(trackingNumber, updateStatus);
+    }
+
+
     private boolean isTrackingNumber(String result){
         if(result.contains("Sorry, we only have")){
             return false;
