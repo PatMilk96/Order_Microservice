@@ -16,6 +16,8 @@ public class OrderController {
         if(amountWanted < 0){
             return "Sorry, that's an invalid amount";
         }
-        else return productService.buyProduct(productId, amountWanted);
+        else{
+            return "Product purchased successfully, your tracking number is " + productService.buyProduct(productId, amountWanted);
+        }
     }
 }
