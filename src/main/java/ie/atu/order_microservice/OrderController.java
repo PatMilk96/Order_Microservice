@@ -41,6 +41,11 @@ public class OrderController {
         return purchaseService.updateOrder(trackingNumber, updateStatus);
     }
 
+    @GetMapping("/orderStatus/{trackingNumber}")
+    public String orderStatus(@PathVariable String trackingNumber){
+        return purchaseService.orderStatus(trackingNumber);
+    }
+
 
     private boolean isTrackingNumber(String result){
         if(result.contains("Sorry, we only have")){
