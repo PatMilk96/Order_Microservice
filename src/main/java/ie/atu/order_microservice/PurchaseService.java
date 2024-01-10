@@ -22,4 +22,13 @@ public class PurchaseService {
         }
         else return "Tracking Number not found";
     }
+
+    public String orderStatus(String trackingNumber) {
+        if(purchaseRepository.existsByTrackingNumber(trackingNumber)){
+            PurchaseDetails purchaseDetails = purchaseRepository.findByTrackingNumber(trackingNumber);
+            return purchaseDetails.getOrderStatus();
+        } else {
+            return "Order not found";
+        }
+    }
 }
